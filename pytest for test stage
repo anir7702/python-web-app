@@ -1,0 +1,6 @@
+#Installation of pytest for test stage
+sudo apt update
+sudo apt install python3-pip
+pip install pytest
+pytest --version
+which pytest
