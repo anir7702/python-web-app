@@ -1,57 +1,47 @@
 pipeline {
     agent any
-    
-    environment {
-        VENV = "${WORKSPACE}/venv"
-        PYTHON = "${VENV}/bin/python"
-    }
-    
+ 
     stages {
         stage('Checkout') {
             steps {
-                script {
-                    try {
-                        git 'https://github.com/anir7702/python-web-app'
-                    } catch (Exception e) {
-                        echo "Failed to checkout code: ${e.message}"
-                        error "Failed to checkout code"
-                    }
-                }
+                // Checkout the source code from the Git repository
+                git credentialsId: 'anir7702', url: 'https://github.com/anir7702/python-web-app'
             }
         }
-        
-        stage('Setup virtual environment') {
+ 
+        stage('Install dependencies') {
             steps {
-                script {
-                    try {
-                        sh "python3 -m venv ${VENV}"
-                        sh "${VENV}/bin/pip install --upgrade pip"
-                        sh "${VENV}/bin/pip install -r requirements.txt"
-                    } catch (Exception e) {
-                        echo "Failed to setup virtual environment: ${e.message}"
-                        error "Failed to setup virtual environment"
-                    }
-                }
+                // Install Python dependencies using pip
+                sh 'pip install -r requirements.txt'
             }
         }
-        
-        stage('Test') {
+ 
+        stage('Run tests') {
             steps {
-                script {
-                    try {
-                        sh "source ${VENV}/bin/activate && ${PYTHON} -m unittest discover tests"
-                    } catch (Exception e) {
-                        echo "Failed to run tests: ${e.message}"
-                        error "Failed to run tests"
-                    }
-                }
+                // Run tests using pytest or any other testing framework
+                sh 'pytest'
+            }
+        }
+ 
+        stage('Build') {
+            steps {
+                // Build the Flask application (if applicable)
+                // This step could involve running any build commands or scripts
+            }
+        }
+ 
+        stage('Deploy') {
+            steps {
+                // Deploy the Flask application (e.g., copy files to a server)
+                // This step could involve running any deployment commands or scripts
             }
         }
     }
-    
+ 
     post {
         always {
-            cleanWs()
+            // Clean up or perform any post-build actions
         }
     }
 }
+ 
