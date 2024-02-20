@@ -25,6 +25,7 @@ pipeline {
                 script {
                     try {
                         sh "python3 -m venv ${VENV}"
+                        sh "${VENV}/bin/pip install --upgrade pip"
                         sh "${VENV}/bin/pip install -r requirements.txt"
                     } catch (Exception e) {
                         echo "Failed to setup virtual environment: ${e.message}"
@@ -38,7 +39,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh "${VENV}/bin/python -m unittest discover tests"
+                        sh "source ${VENV}/bin/activate && ${PYTHON} -m unittest discover tests"
                     } catch (Exception e) {
                         echo "Failed to run tests: ${e.message}"
                         error "Failed to run tests"
