@@ -1,20 +1,26 @@
-pipeline{
+pipeline {
     agent any
     
-    stages{
-        stage('checkout'){
-            steps{
+    stages {
+        stage('checkout') {
+            steps {
                 git branch: 'main', url: 'https://github.com/anir7702/python-web-app.git'
             }
         }
-        stage('Install Dependencies'){
-            steps{
+        stage('Install Dependencies') {
+            steps {
                 sh 'pip install -r requirements.txt'
             }
         }
         stage('Test'){
             steps{
                 sh 'export PATH="$PATH:/usr/local/bin/pytest"'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh ' docker build -t anirvaj -f Dockerfile .'
+                sh 'docker run -d -p 5003:5000 anirvaj'
             }
         }
     }
