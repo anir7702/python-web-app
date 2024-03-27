@@ -18,9 +18,9 @@ sudo systemct status docker
 
 docker build -t <imagename> .
 
-docker images (To check whether the image is created not)
+docker images (To check whether the image is created or not)
 
-docker ps -a ( to check conatiner)
+docker ps -a ( to check conatiner status)
 
 docker start <Container Id>
 
