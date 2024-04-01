@@ -24,5 +24,6 @@ docker ps -a ( to check conatiner status)
 
 docker start <Container Id>
 
-docker run -it -d -p 5000:5000 <Image name>
+sudo docker run -it -d -p 5000:5000 <image_name>
+
 
