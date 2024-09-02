@@ -16,7 +16,7 @@ sudo systemctl enable docker
 
 sudo systemct status docker
 
-docker build -t <imagename> .
+sudo docker build -t <imagename> .
 
 docker images (To check whether the image is created or not)
 
