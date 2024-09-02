@@ -18,11 +18,11 @@ sudo systemct status docker
 
 sudo docker build -t <imagename> .
 
-docker images (To check whether the image is created or not)
+sudo docker images (To check whether the image is created or not)
 
-docker ps -a ( to check conatiner status)
+sudo docker ps -a ( to check conatiner status)
 
-docker start <Container Id>
+sudo docker start <Container Id>
 
 sudo docker run -it -d -p 5000:5000 <image_name>
 
